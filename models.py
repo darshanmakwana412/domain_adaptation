@@ -5,6 +5,8 @@ from functools import partial
 from dataclasses import dataclass
 from collections import OrderedDict
 
+from typing import Optional
+
 # Convolutional layer with dyanmic padding
 class Conv2dAuto(nn.Conv2d):
     def __init__(self, *args, **kwargs):
