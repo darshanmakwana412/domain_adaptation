@@ -44,6 +44,8 @@ class DataManager:
         else:
             print(f"All classes are present across all the domains")
 
+        print(f"Total number of classes: {len(num_class)}")
+
     def sample(self, domain: str, split: str = "train", batch_size: int = 1, return_tensors: bool = False) -> Union[
         Optional[tuple[Image.Image, int]],
         Optional[tuple[list[Image.Image], list[int]]],
