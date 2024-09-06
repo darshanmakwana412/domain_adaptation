@@ -35,7 +35,7 @@ class Trainer:
 
     def train(self, domain: str, run_name: str) -> None:
 
-        num_samples = len(data_manager.data["train"][domain])
+        num_samples = len(self.data_manager.data["train"][domain])
         num_steps = math.ceil(num_samples / self.batch_size) * self.epochs
 
         run = wandb.init(
@@ -44,7 +44,7 @@ class Trainer:
                 "learning_rate": self.learning_rate,
                 "epochs": self.epochs,
                 "model_type": self.model.model_name,
-                "batch_size": self.self.batch_size
+                "batch_size": self.batch_size
             }
         )
 
@@ -74,7 +74,7 @@ class Trainer:
         
         self.model.eval()
         
-        num_samples = len(data_manager.data["test"][domain])
+        num_samples = len(self.data_manager.data["test"][domain])
         eval_steps = math.ceil(num_samples / self.batch_size)
         
         test_loss = 0.0
