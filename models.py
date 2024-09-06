@@ -1,6 +1,17 @@
 import torch
 import torch.nn as nn
+
+from functools import partial
+from dataclasses import dataclass
 from collections import OrderedDict
+
+# Convolutional layer with dyanmic padding
+class Conv2dAuto(nn.Conv2d):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.padding =  (self.kernel_size[0] // 2, self.kernel_size[1] // 2)
+        
+conv3x3 = partial(Conv2dAuto, kernel_size=3, bias=False)      
 
 class ResidualBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
