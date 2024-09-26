@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import math
 
 
-
+#------------ Helper functions for automold, fetched from GitHub ------------
 
 err_not_np_img= "not a numpy array or list of numpy array" 
 err_img_arr_empty="Image array is empty"
