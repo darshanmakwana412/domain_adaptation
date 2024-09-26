@@ -20,6 +20,7 @@ class DataManager:
     def _download_data(self) -> None:
         cifar10_train = datasets.CIFAR10(root=self.train_dir, train=True, download=True)
         cifar10_test = datasets.CIFAR10(root=self.test_dir, train=False, download=True)
+        print("Data downloaded successfully")
     
     def _process_data(self) -> None:
         '''
@@ -54,6 +55,8 @@ class DataManager:
             img = Image.fromarray(img)
             img.save(os.path.join(self.train_dir, str(label), f"{i}.jpg"))
 
+        print("Train data processed successfully")
+
         test_data = datasets.CIFAR10(root=self.test_dir, train=False, download=False)
         for i in range(10):
             os.makedirs(os.path.join(self.test_dir, str(i)), exist_ok=True)
@@ -61,6 +64,8 @@ class DataManager:
         for i, (img, label) in enumerate(test_data):
             img = Image.fromarray(img)
             img.save(os.path.join(self.test_dir, str(label), f"{i}.jpg"))
+        
+        print("Test data processed successfully")
 
     def _augment_data(self, augment_type: str) -> None:
         '''
@@ -98,6 +103,9 @@ class DataManager:
             train_path_fmt = train_path + "/*.jpg"
             test_path_fmt = test_path + "/*.jpg"
 
+            print(f"Train path: {train_path_fmt}")
+            print(f"Test path: {test_path_fmt}")
+
             if augment_type == "rain":
                 images_train = hp.load_images(train_path_fmt)
                 images_test = hp.load_images(test_path_fmt)
@@ -112,6 +120,8 @@ class DataManager:
                     rain_test_path = os.path.join(dir_path, "test", str(i))
                     cv2.imwrite(f"{rain_test_path}/{i}.jpg", rain_test[i])
                 
+                print("Rain added successfully")
+
             elif augment_type == "fog":
                 images_train = hp.load_images(train_path_fmt)
                 images_test = hp.load_images(test_path_fmt)
@@ -122,10 +132,13 @@ class DataManager:
                     fog_train_path = os.path.join(dir_path, "train", str(i))
                     cv2.imwrite(f"{fog_train_path}/{i}.jpg", fog_train[i])
                 
+                
                 for i in range(len(fog_test)):
                     fog_test_path = os.path.join(dir_path, "test", str(i))
                     cv2.imwrite(f"{fog_test_path}/{i}.jpg", fog_test[i])
-            
+
+                print("Fog added successfully")
+
             elif augment_type == "autumn":
                 images_train = hp.load_images(train_path_fmt)
                 images_test = hp.load_images(test_path_fmt)
@@ -139,6 +152,8 @@ class DataManager:
                 for i in range(len(autumn_test)):
                     autumn_test_path = os.path.join(dir_path, "test", str(i))
                     cv2.imwrite(f"{autumn_test_path}/{i}.jpg", autumn_test[i])
+
+                print("Autumn added successfully")
 
     def prepare_data(self, augment_type: str) -> None:
         self._download_data()
