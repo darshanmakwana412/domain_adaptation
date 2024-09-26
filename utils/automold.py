@@ -3,7 +3,7 @@ import numpy as np
 import random
 import math
 
-
+#--------------- Automold, fetched from GitHub ---------------
 ###################### HLS #############################
 
 def hls(image,src='RGB'):
