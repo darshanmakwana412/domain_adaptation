@@ -166,10 +166,19 @@ class ResNet(nn.Module):
         }
 
         if model_name[-4:] == ".pth":
+            
             ckpt = torch.load(model_name, weights_only = False)
             model_name = ckpt["model_type"]
             n_classes = ckpt["n_classes"]
             in_channels = ckpt["in_channels"]
+            
+            config = model_configs.get(model_name.lower())
+
+            model = ResNet(in_channels, n_classes, block=config["block"], depths=config["depths"])
+            model.model_name = model_name
+            model.load_state_dict(ckpt["state_dict"])
+
+            return model
         
         config = model_configs.get(model_name.lower())
         
@@ -178,9 +187,6 @@ class ResNet(nn.Module):
             model.model_name = model_name
         else:
             raise ValueError(f"{model_name} not implemented, available models are: {list(model_configs.keys())}")
-
-        if model_name[-4:] == ".pth":
-            model.load_state_dict(ckpt["state_dict"])
 
         return model
 
