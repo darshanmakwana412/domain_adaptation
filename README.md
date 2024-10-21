@@ -1,5 +1,30 @@
 This repository is Work in Progress
 
+### Benchmarks
+```python
+## Benchmarks (Accuracy %)
+#                 <- models ->
+# domain    base   rain    fog    autumn
+# base      63.32  29.04   54.14  26.77
+# rainy     26.02  60.26   32.36  26.38
+# foggy     51.55  39.9    62.92  24.14
+# autumn    16.25  11.98   17.26  39.16
+
+## Method 1: MTL (Task Vector avg)
+# Editing Models with Task arithematic
+# Ref: https://arxiv.org/pdf/2212.04089
+#  alpha    base    rain    fog   autumn
+#    0      63.38  26.68   51.42  16.52
+#  1e-4     38.80  16.24   25.82  14.14
+#  1e-3     19.34  13.04   16.56  11.59
+#  1e-2     12.52  10.74   13.00  11.66
+#  1e-1     10.0   10.0    10.0   11.92
+#  1e0      10.0   10.0    10.0   10.0
+#  1e1      10.0   10.0    10.0   10.0
+#  1e2      10.0   10.0    10.0   10.0
+#  1e3      10.0   10.0    10.0   10.0
+```
+
 ### Preparing the Dataset
 
 We use [DomainNet](https://ai.bu.edu/M3SDA/#overview) for all the experiments on domain adaptation. To download the dataset run

@@ -190,6 +190,42 @@ class ResNet(nn.Module):
 
         return model
 
+    def add(self, model: 'ResNet', device: str = "cpu", dtype = torch.float32) -> 'ResNet':
+        result = ResNet.load_model(model_name=model.model_name, n_classes=model.n_classes).to(device).to(dtype)
+        result_state = result.state_dict()
+        self_state = self.state_dict()
+
+        model.to(device).to(dtype)
+
+        for key, val in model.state_dict().items():
+            result_state[key] = self_state[key] + val
+
+        result.load_state_dict(result_state)
+        return result
+
+    def sub(self, model: 'ResNet', device: str = "cpu", dtype = torch.float32) -> 'ResNet':
+        result = ResNet.load_model(model_name=model.model_name, n_classes=model.n_classes).to(device).to(dtype)
+        result_state = result.state_dict()
+        self_state = self.state_dict()
+
+        model.to(device).to(dtype)
+
+        for key, val in model.state_dict().items():
+            result_state[key] = self_state[key] - val
+
+        result.load_state_dict(result_state)
+        return result
+
+    def scale(self, alpha: float, device: str = "cpu", dtype = torch.float32) -> 'ResNet':
+        result = ResNet.load_model(model_name=self.model_name, n_classes=self.n_classes).to(device).to(dtype)
+        result_state = result.state_dict()
+
+        for key, val in self.state_dict().items():
+            result_state[key] = val * alpha
+
+        result.load_state_dict(result_state)
+        return result
+
     def save_model(self, path: str) -> None:
         ckpt = {
             "model_type": self.model_name,
