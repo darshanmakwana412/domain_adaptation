@@ -12,7 +12,6 @@ from aug.automold import add_rain, add_snow, add_fog, add_autumn
 from torch.utils.data import Dataset, DataLoader
 from models import ResNet
 
-# Define your previously shared functions here...
 def load_stl10(root_dir: str = "stl10_binary"):
     path_to_images = os.path.join(root_dir, "train_X.bin") 
     path_to_labels = os.path.join(root_dir, "train_y.bin")
@@ -216,7 +215,6 @@ if st.button("Transform and Predict"):
     for i, domain in enumerate(["rain", "fog", "snow"]):
         st.write(f"Predicted class for {domain}: {preds[i]}")
 
-    # Plot images in a grid
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
     for ax, img, domain in zip(axes, images, ["Rain", "Fog", "Snow"]):
         ax.imshow(img)
