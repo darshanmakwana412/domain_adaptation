@@ -20,7 +20,7 @@ This project focuses on training multiple deep learning models of the same archi
 ├── demo.ipynb                  # Jupyter notebook for demonstration
 ├── exp.ipynb                   # Jupyter notebook for experimental results -> includes the various approaches tried
 ├── fig.png                     # Image used in the notebook for visualizations -> Augmentation effect on images
-├── Grad.ipynb                  # Jupyter notebook with gradient-based visualizations
+├── Grad.ipynb                  # Jupyter notebook, experimenting with Grad-CAM
 ├── hack.py                     # Helper script with data augmentation and preprocessing
 ├── models.py                   # Defines the ResNet architecture and model loading logic
 ├── tinkering.ipynb             # Jupyter notebook for experimentation (version 1, old)
@@ -135,6 +135,5 @@ Several Jupyter notebooks are provided for experimentation and demonstration:
 
 - **`demo.ipynb`**: Demonstrates an end-to-end usage of the classification task. Starts by loading the model, receives image input from the base as well as the shifted domains and performs the classification
 - **`exp.ipynb`**: Used for running experiments and analyzing results.
-- **`Grad.ipynb`**: Contains notebooks for gradient-based visualizations or experiments.
 - **`merging.ipynb`**: Used for merging or combining results from different models or runs.
 
