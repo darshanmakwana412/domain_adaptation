@@ -137,7 +137,7 @@ def evaluate(model, batch_size, num_workers, domains, device, dtype):
 def load_model(model_name):
     model = torchvision.models.resnet50(weights=torchvision.models.ResNet50_Weights.DEFAULT)
     model.fc = torch.nn.Linear(model.fc.in_features, 10)
-    model.load_state_dict(torch.load(f"./ckpts/{model_name}.pth"))
+    model.load_state_dict(torch.load(f"./ckpts/{model_name}.pth", map_location=lambda device, loc: device))
     model.to(device).to(dtype)
     return model
 
@@ -156,7 +156,7 @@ def get_empty_model():
     result.to(device).to(dtype)
     return result
 
-device = "cuda:7"
+device = "cuda:0"
 dtype = torch.float32
 base_model = load_model("resnet_50")
 mtl_model = load_model("mtl")
@@ -193,7 +193,7 @@ if st.button("Transform and Predict"):
         
         img_tensor = tfms(transformed_image).unsqueeze(0)
 
-        mask = torch.load(f"./ckpts/mask_{domain}.pth")
+        mask = torch.load(f"./ckpts/mask_{domain}.pth", map_location=lambda device, loc: device)
         state = get_empty_state()
         for key in state:
             state[key] = base_model.state_dict()[key] + mask[key].to(device) * mtl_model.state_dict()[key]
